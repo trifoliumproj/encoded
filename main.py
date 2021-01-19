@@ -13,5 +13,15 @@ def main():
 
 def encode(file):
     with open(file, 'r') as stream:
-        data = yaml.load(stream.read())
-    print(data)
+        document = yaml.load(stream.read(), Loader=yaml.Loader)
+    if 'data' in document:
+        for key in document['data']:
+            value = document['data'][key]
+            document['data'][key] = base64.b64encode(bytes(value, 'utf8')).decode()
+    if 'stringData' in document:
+        for key in document['stringData']:
+            value = document['stringData'][key]
+            document['stringData'][key] = base64.b64encode(bytes(value, 'utf8')).decode()
+    return document
+
+main()
