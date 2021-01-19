@@ -9,7 +9,7 @@ args = parser.parse_args()
 file = args.file[0]
 
 def main():
-    print(encode(file))
+    print(yaml.dump(encode(file), default_flow_style=False))
 
 def encode(file):
     with open(file, 'r') as stream:
